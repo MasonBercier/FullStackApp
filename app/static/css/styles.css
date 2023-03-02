@@ -1,0 +1,21 @@
+.head {
+    text-align:  center;
+    color: white;
+}
+
+body {
+    background: darkred;
+}
+
+.form-group {
+    color: white;
+    background-color: rgb(33, 37, 41);
+}
+
+#pokemon-help{
+    color:white;
+}
+
+.home-text {
+    color: white
+}

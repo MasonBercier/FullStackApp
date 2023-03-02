@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Pokemon Search
+{% endblock %}
+
+{% block css %}
+  <link rel="stylesheet" href="{{url_for('static', filename='css/pokemon.css')}}"
+{% endblock %}
+
+
+{% block content %}
+
+<h1 class="head">PokeSearch Page</h1>
+
+    <form action="/pokemon" method="POST">
+        <div class="form-group">
+            <label for="pokemon-name">Pokemon Name</label>
+            <input type="text" class="form-control" id="pokemon-name" name="pokemon" placeholder="Enter a pokemon's name">
+            <small id="pokemon-help" class="form-text">Sometimes the best pokemon are just your favorite pokemon!</small>
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+    <div>
+      <strong style="color:red">{{error}}</strong>
+    </div>
+
+{% if pokeinfo %}
+<div class="card mx-auto text-white bg-dark" style="width: 18rem;">
+    <h5 class="card-title">{{pokeinfo['name'].title()}}</h5> <h5 class="list-group-item">HP: {{pokeinfo['hp stat']}}</h5>
+  <img class="card-img-top" src={{pokeinfo['gif sprite']}} alt="Card image cap">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item text-white bg-dark">Type: {{pokeinfo['type'].title()}}</li>
+    <li class="list-group-item text-white bg-dark">Ability: {{pokeinfo['ability'].title()}}</li>
+    <li class="list-group-item text-white bg-dark">Attack: {{pokeinfo['attack stat']}}</li>
+    <li class="list-group-item text-white bg-dark">Defense: {{pokeinfo['defense stat']}}</li>
+    <li class="list-group-item text-white bg-dark">Base Exp: {{pokeinfo['base exp']}}</li>
+  </ul>
+</div>
+{% endif %}
+{% endblock %}
