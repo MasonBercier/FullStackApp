@@ -11,30 +11,17 @@
   </head>
   <body>
   <title>Flask App - {% block title %}  {% endblock %}</title>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">PokeFlask</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="{{url_for('home')}}">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{url_for('login')}}">Login</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{url_for('signup')}}">SignUp</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{url_for('pokemon')}}">PokeSearch</a>
-            </li>
-          </ul>
-          </form>
-        </div>
-      </nav>
-      <div>
+      {% include './includes/nav.html' %}
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert alert-{{category}} alert-dismissible fade show" role="alert">
+              {{message}}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
           {% block content %}
     
           {% endblock %}
