@@ -16,6 +16,48 @@ body {
     color:white;
 }
 
-.home-text, .helpful {
-    color: white
+#home-text-box{
+    color: white;
+    padding: 40px;
+    background-image: url("../images/Daycare-empty.jpg");
+}
+
+.home-text-box{
+    margin: 20px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    flex-grow: 4;
+    background-color: rgb(33, 37, 41);
+    
+}
+
+#helpful-div{
+    color: white;
+}
+
+.helpful-div{
+    margin: 20px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    flex-grow: 4;
+    
+}
+
+.comp-div{
+    margin: 20px;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    flex-grow: 4;
+    background-color: rgb(33, 37, 41);
+    flex-direction: column;
+    
+}
+
+.comp-div, a{
+    color: white;
+    padding-right: 150px;
+    padding-top: 30px;
 }
