@@ -30,8 +30,10 @@ def create_app():
     from app.blueprints.main import main
     from app.blueprints.auth import auth
 
+
     # Register Blueprints
     app.register_blueprint(main)
     app.register_blueprint(auth)
 
+    
     return app

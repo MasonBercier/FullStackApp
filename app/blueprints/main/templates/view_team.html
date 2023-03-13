@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+View Team
+{% endblock %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block content %}
+    {% for pokemon in my_team %} 
+        <div class="card mx-auto text-bg-dark bg-dark"  style="width: 18rem;">
+            <h5 class="card-title">{{pokemon.name}}</h5> <h5 class="list-group-item">HP: {{pokemon.hp_stat}}</h5>
+            <img class="card-img-top" src="{{pokemon.sprite_url}}" alt="Card image cap">
+            <ul class="list-group list-group-flush">
+            <li class="list-group-item text-white bg-dark">Type: {{pokemon.primary_type}}</li>
+            <li class="list-group-item text-white bg-dark">Ability: {{pokemon.ability}}</li>
+            <li class="list-group-item text-white bg-dark">Attack: {{pokemon.attack_stat}}</li>
+            <li class="list-group-item text-white bg-dark">Defense: {{pokemon.defense_stat}}</li>
+            <li class="list-group-item text-white bg-dark">Base Exp: {{pokemon.base_exp}}</li>
+            </ul>
+            <a href="{{url_for('main.release_pokemon', caught_name=my_team[0].name)}}" class="btn btn-primary">Release</a>
+        </div>
+        {% endfor %}
+{% endblock %}
+
