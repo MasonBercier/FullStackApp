@@ -1,6 +1,6 @@
 from flask import render_template, request, flash, redirect, url_for
 import requests
-from .forms import PokeForm, PokeTeamForm
+from .forms import PokeForm
 from . import main
 from app.models import User, Caught
 from flask_login import login_required, current_user
@@ -22,6 +22,10 @@ def pokemon():
         url = f'https://pokeapi.co/api/v2/pokemon/{pokemon}'
         response = requests.get(url)
         if response.ok:
+            poke_check = current_user.poketeam.all()
+            if poke_check:
+                flash('Sorry, it looks like that pokemon is already on your team!')
+                return redirect(url_for('main.pokemon'))
             if current_user.poketeam.count() < 6:
                 new_team = []
                 pokename = response.json()
@@ -36,22 +40,17 @@ def pokemon():
                     "defense_stat": pokename['stats'][2]['base_stat'],
                     "primary_type": pokename['types'][0]['type']['name']
                 }
+                new_team.append(pokeinfo)
+
+                new_pokemon = Caught()
+
+                new_pokemon.from_dict(pokeinfo)
+
+                new_pokemon.save_to_db()
             else:
-                flash('Sorry youre team is full!')
-            poke_check = current_user.poketeam.filter_by(name=pokeinfo['name']).first()
-
-            if poke_check:
-                flash('Sorry, it looks like that pokemon is already on your team!')
+                flash('Sorry your team is full!')
                 return redirect(url_for('main.pokemon'))
-            new_team.append(pokeinfo)
 
-            new_pokemon = Caught()
-
-            new_pokemon.from_dict(pokeinfo)
-
-            new_pokemon.save_to_db()
-
-            current_user.catch_poke(new_pokemon)
 
             return render_template('pokemon.html', pokeinfo=pokeinfo, new_team=new_team, form=form)
 
@@ -67,7 +66,7 @@ def pokemon():
 def catch_poke(caught_name):
     poke = Caught.query.get(caught_name)
     if poke:
-        current_user.catch_poke(caught_name)
+        current_user.catch_poke(poke)
         return render_template('view_team.html', poke=poke)
     else:
         flash('This poke does not exist', 'danger')
@@ -94,12 +93,13 @@ def view_team():
     return render_template('view_team.html', my_team=my_team)
 
 
-@main.route('/release_pokemon/<caught_name>')
+@main.route('/release_poke/<caught_name>')
 @login_required
-def release_pokemon(caught_name):
+def release_poke(caught_name):
         pokemon = Caught.query.get(caught_name)
-        if pokemon in Caught:
-            current_user.release_pokemon()
+        poke_check = current_user.poketeam.filter_by(name=caught_name).first()
+        if poke_check:
+            current_user.release_poke(pokemon)
             flash('Pokemon successfully released into the wild')
         else:
             flash('This pokemon is not in your party')

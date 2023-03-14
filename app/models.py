@@ -5,7 +5,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 poketeam = db.Table('poketeam',
                     db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
-                    db.Column('caught_poke', db.Integer, db.ForeignKey('caught.id')),
+                    db.Column('caught_name', db.String, db.ForeignKey('caught.name')),
                     )
 
 
@@ -67,8 +67,7 @@ def load_user(user_id):
 class Caught(db.Model):
     __tablename__ = "caught"
     __table_args__ = {'extend_existing': True}
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String, nullable=False)
+    name = db.Column(db.String, nullable=False, primary_key=True)
     ability = db.Column(db.String)
     base_exp = db.Column(db.Integer)
     sprite_url = db.Column(db.String)

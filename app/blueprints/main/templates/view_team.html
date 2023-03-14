@@ -20,7 +20,7 @@ View Team
             <li class="list-group-item text-white bg-dark">Defense: {{pokemon.defense_stat}}</li>
             <li class="list-group-item text-white bg-dark">Base Exp: {{pokemon.base_exp}}</li>
             </ul>
-            <a href="{{url_for('main.release_pokemon', caught_name=my_team[0].name)}}" class="btn btn-primary">Release</a>
+            <a href="{{url_for('main.release_poke', caught_name=my_team[0].name)}}" class="btn btn-primary">Release</a>
         </div>
         {% endfor %}
 {% endblock %}
