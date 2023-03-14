@@ -5,7 +5,7 @@ Pokemon Search
 {% endblock %}
 
 {% block css %}
-  <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}"
+  <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}">
 {% endblock %}
 
 
@@ -26,11 +26,11 @@ Pokemon Search
 {% if new_team %}
       {% for pokemon in new_team %}
         <div class="card mx-auto text-bg-dark bg-dark"  style="width: 18rem;">
-            <h5 class="card-title">{{pokemon.name}}</h5> <h5 class="list-group-item">HP: {{pokemon.hp_stat}}</h5>
+            <h5 class="card-title">{{pokemon.name.title()}}</h5> <h5 class="list-group-item">HP: {{pokemon.hp_stat}}</h5>
             <img class="card-img-top" src="{{pokemon.gif_sprite_url}}" alt="Card image cap">
             <ul class="list-group list-group-flush">
-            <li class="list-group-item text-white bg-dark">Type: {{pokemon.primary_type}}</li>
-            <li class="list-group-item text-white bg-dark">Ability: {{pokemon.ability}}</li>
+            <li class="list-group-item text-white bg-dark">Type: {{pokemon.primary_type.title()}}</li>
+            <li class="list-group-item text-white bg-dark">Ability: {{pokemon.ability.title()}}</li>
             <li class="list-group-item text-white bg-dark">Attack: {{pokemon.attack_stat}}</li>
             <li class="list-group-item text-white bg-dark">Defense: {{pokemon.defense_stat}}</li>
             <li class="list-group-item text-white bg-dark">Base Exp: {{pokemon.base_exp}}</li>

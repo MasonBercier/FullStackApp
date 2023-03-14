@@ -22,11 +22,8 @@ def pokemon():
         url = f'https://pokeapi.co/api/v2/pokemon/{pokemon}'
         response = requests.get(url)
         if response.ok:
-            poke_check = current_user.poketeam.all()
-            if poke_check:
-                flash('Sorry, it looks like that pokemon is already on your team!')
-                return redirect(url_for('main.pokemon'))
-            if current_user.poketeam.count() < 6:
+            
+            # if current_user.poketeam.count() < 6:
                 new_team = []
                 pokename = response.json()
                 pokeinfo = {    
@@ -41,18 +38,22 @@ def pokemon():
                     "primary_type": pokename['types'][0]['type']['name']
                 }
                 new_team.append(pokeinfo)
+                poke_check = Caught.query.filter_by(name=pokemon).first()
+                if poke_check == None:
 
-                new_pokemon = Caught()
+                    new_pokemon = Caught()
 
-                new_pokemon.from_dict(pokeinfo)
+                    new_pokemon.from_dict(pokeinfo)
 
-                new_pokemon.save_to_db()
-            else:
-                flash('Sorry your team is full!')
-                return redirect(url_for('main.pokemon'))
+                    new_pokemon.save_to_db()
 
+                    return render_template('pokemon.html', pokeinfo=pokeinfo, new_team=new_team, form=form)
+            # else:
+            #     flash('Sorry your team is full!')
+            #     return redirect(url_for('main.pokemon'))
 
-            return render_template('pokemon.html', pokeinfo=pokeinfo, new_team=new_team, form=form)
+                else:
+                    return render_template('pokemon.html', pokeinfo=pokeinfo, new_team=new_team, form=form)
 
         else:
             flash("This pokemon does not exist! Maybe check your spelling", "warning")
@@ -64,10 +65,19 @@ def pokemon():
 @main.route('/catch/<caught_name>')
 @login_required
 def catch_poke(caught_name):
+    poke_check = current_user.poketeam.filter_by(name=caught_name).first()
+    if poke_check:
+        flash('Sorry, it looks like that pokemon is already on your team!')
+        return redirect(url_for('main.view_team'))
     poke = Caught.query.get(caught_name)
     if poke:
-        current_user.catch_poke(poke)
-        return render_template('view_team.html', poke=poke)
+        if current_user.poketeam.count() < 6:
+            current_user.catch_poke(poke)
+            flash(f'{caught_name.title()} has been caught!', 'success')
+            return redirect(url_for('main.view_team'))
+        else:
+             flash('Sorry your team is full!', 'warning')
+             return render_template('view_team.html')
     else:
         flash('This poke does not exist', 'danger')
 

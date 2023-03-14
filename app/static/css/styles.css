@@ -9,7 +9,7 @@ body {
 
 .form-group {
     color: white;
-    background-color: rgb(33, 37, 41);
+    background-color: rgb(1, 182, 178);
 }
 
 #pokemon-help{
@@ -28,7 +28,7 @@ body {
     display: flex;
     justify-content: center;
     flex-grow: 4;
-    background-color: rgb(33, 37, 41);
+    background-color: rgb(1, 182, 178);
     
 }
 
@@ -51,7 +51,7 @@ body {
     display: flex;
     justify-content: center;
     flex-grow: 4;
-    background-color: rgb(33, 37, 41);
+    background-color: rgb(1, 182, 178);
     flex-direction: column;
     
 }

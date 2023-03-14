@@ -71,9 +71,11 @@ class Caught(db.Model):
     ability = db.Column(db.String)
     base_exp = db.Column(db.Integer)
     sprite_url = db.Column(db.String)
+    gif_sprite_url = db.Column(db.String)
     attack_stat = db.Column(db.Integer)
     hp_stat = db.Column(db.Integer)
     defense_stat = db.Column(db.Integer)
+    primary_type = db.Column(db.String)
     # poketeam = db.relationship('Caught', secondary = poketeam, backref = 'trainer', lazy='dynamic')
     #precentage of use?? 
     #query poke.trainer length 
@@ -83,9 +85,11 @@ class Caught(db.Model):
         self.ability = data['ability']
         self.base_exp = data['base_exp']
         self.sprite_url = data['sprite_url']
+        self.gif_sprite_url = data['gif_sprite_url']
         self.attack_stat = data['attack_stat']
         self.hp_stat = data['hp_stat']
         self.defense_stat = data['defense_stat']
+        self.primary_type = data['primary_type']
     
     def save_to_db(self):
         db.session.add(self)
