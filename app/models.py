@@ -26,8 +26,8 @@ class User(UserMixin, db.Model):
     #select returns list opposed to objects
 
     #hashes our password
-    def hash_password(self, og_password):
-        return generate_password_hash(og_password)
+    def hash_password(self, original_password):
+        return generate_password_hash(original_password)
     
     #check password hash
     def check_hash_password(self, login_password):

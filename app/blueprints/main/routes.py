@@ -6,10 +6,12 @@ from app.models import User, Caught
 from flask_login import login_required, current_user
 
 
+
+
+
 @main.route('/')
 def home():
     users = User.query.all()
-    print(users)
     return render_template('home.html', users=users)
 
 
@@ -115,3 +117,9 @@ def release_poke(caught_name):
             flash('This pokemon is not in your party')
 
         return redirect(url_for('main.view_team'))
+
+@main.route('/battle')
+@login_required
+def battle():
+    users = User.query.all()
+    return render_template('battle.html', users=users)

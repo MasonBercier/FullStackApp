@@ -43,7 +43,8 @@ def register():
         new_user_data = {
             'first_name': form.first_name.data.title(),
             'last_name': form.last_name.data.title(),
-            'email': form.email.data.lower()
+            'email': form.email.data.lower(),
+            'password': form.password.data
         }
 
         #create instance of user
